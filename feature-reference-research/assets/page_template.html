@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{Механика}: референсы</title>
+<style>
+:root {
+  --bg: #f6f4ef; --panel: #ffffff; --ink: #1d1f23; --muted: #5d6470; --line: #e2ddd2;
+  --accent: #8a3b12; --accent-soft: #f6e7dc; --link: #1f5fa8;
+  --s: #c0392b; --a: #d9822b; --b: #2f80a8; --c: #7b8794;
+  --good: #2e7d4f; --bad: #b03a2e; --chip: #efe9de;
+  --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 14px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171b; --panel: #1e2127; --ink: #e8e6e1; --muted: #a2a8b3; --line: #30343c;
+    --accent: #f0a274; --accent-soft: #3a2a20; --link: #7fb2ef; --chip: #2a2e35;
+    --good: #6cc492; --bad: #f08a7e; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15171b; --panel: #1e2127; --ink: #e8e6e1; --muted: #a2a8b3; --line: #30343c;
+  --accent: #f0a274; --accent-soft: #3a2a20; --link: #7fb2ef; --chip: #2a2e35;
+  --good: #6cc492; --bad: #f08a7e; --shadow: none;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; }
+a { color: var(--link); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px 80px; }
+header.top { padding: 36px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+header.top h1 { margin: 0 0 6px; font-size: 32px; line-height: 1.2; }
+header.top p { margin: 4px 0; color: var(--muted); }
+nav.toc { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 0; margin-bottom: 20px; overflow-x: auto; white-space: nowrap; }
+nav.toc a { display: inline-block; margin-right: 14px; font-size: 14px; text-decoration: none; color: var(--muted); }
+nav.toc a:hover { color: var(--accent); }
+h2 { font-size: 25px; margin: 44px 0 12px; padding-top: 6px; }
+h3 { font-size: 20px; margin: 26px 0 8px; }
+h4 { font-size: 16px; margin: 16px 0 6px; }
+p, li { max-width: 78ch; }
+.lead { font-size: 17px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); margin: 14px 0; }
+.callout { background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin: 14px 0; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.badge { display: inline-block; min-width: 26px; text-align: center; font-weight: 700; color: #fff; border-radius: 6px; padding: 1px 7px; font-size: 14px; }
+.t-S { background: var(--s); } .t-A { background: var(--a); } .t-B { background: var(--b); } .t-C { background: var(--c); }
+.tier { display: grid; grid-template-columns: 70px 1fr; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 10px 0; background: var(--panel); }
+.tier > .lbl { display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 800; color: #fff; }
+.tier > .items { display: flex; flex-wrap: wrap; gap: 10px; padding: 10px; }
+.chipcard { width: 168px; text-decoration: none; color: var(--ink); background: var(--chip); border-radius: 10px; overflow: hidden; font-size: 13px; line-height: 1.3; }
+.chipcard img { width: 100%; height: 92px; object-fit: cover; display: block; background: #000; }
+.chipcard span { display: block; padding: 6px 8px 8px; }
+.chipcard b { display: block; font-size: 13px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { border-bottom: 1px solid var(--line); padding: 8px 8px; text-align: left; vertical-align: top; }
+th { background: var(--chip); font-weight: 600; position: sticky; top: 42px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+.tablewrap table { min-width: 1100px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 18px 0; box-shadow: var(--shadow); }
+.card h3 { margin-top: 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.card .meta { color: var(--muted); font-size: 14px; margin: -2px 0 10px; }
+.pm { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin: 10px 0; }
+.pm > div { border-radius: 10px; padding: 10px 14px; border: 1px solid var(--line); }
+.pm .plus { border-left: 4px solid var(--good); }
+.pm .minus { border-left: 4px solid var(--bad); }
+.pm h4 { margin-top: 2px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin: 12px 0; }
+.gallery figure { margin: 0; background: var(--chip); border-radius: 10px; overflow: hidden; }
+.gallery a { display: block; }
+.gallery img { width: 100%; height: 170px; object-fit: contain; background: #0d0f12; display: block; }
+.gallery figcaption { font-size: 12.5px; padding: 6px 8px 8px; color: var(--muted); line-height: 1.35; }
+.yt { border-top: 1px dashed var(--line); margin-top: 12px; padding-top: 10px; font-size: 14px; }
+.yt .tag { display: inline-block; background: #c4302b; color: #fff; border-radius: 4px; padding: 0 6px; font-size: 12px; margin-right: 6px; }
+details { margin: 8px 0; }
+details > summary { cursor: pointer; color: var(--muted); font-size: 14px; }
+.src { font-size: 13px; color: var(--muted); }
+.src a { word-break: break-all; }
+ul.tight li { margin: 3px 0; }
+.variant { border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--panel); margin: 14px 0; }
+.variant.rec { border: 2px solid var(--accent); }
+.variant h3 { margin-top: 0; }
+.kv { display: grid; grid-template-columns: 180px 1fr; gap: 6px 14px; font-size: 15px; }
+.kv > div:nth-child(odd) { color: var(--muted); }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 10px 0; font-size: 13px; }
+.week div { background: var(--chip); border-radius: 8px; padding: 8px; min-height: 64px; }
+.week .fight { background: var(--accent-soft); border: 1px solid var(--accent); }
+.week b { display: block; }
+.themebtn { float: right; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
+@media (max-width: 640px) {
+  header.top h1 { font-size: 25px; }
+  .kv { grid-template-columns: 1fr; }
+  .week { grid-template-columns: repeat(2, 1fr); }
+  .tier { grid-template-columns: 46px 1fr; }
+  .chipcard { width: calc(50% - 5px); }
+  th { position: static; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <button class="themebtn" onclick="toggleTheme()">Тема</button>
+  <h1>{МЕХАНИКА}: разбор референсов</h1>
+  <p class="lead">{Одно предложение о задаче.} Разобрано {N} игр и около {M} режимов: тир-лист, сводная таблица, подробные описания и варианты для {ПРОЕКТ}.</p>
+  <p class="small">Собрано {дата}. Источники: вики, гайды, патчноуты, форумы, YouTube (кадры и расшифровки). Reddit закрыт для автоматического чтения — мнения игроков с форумов, из комментариев к гайдам и патчей. Факты из источников отделены от выводов, выводы помечены.</p>
+</header>
+
+<nav class="toc">
+  <a href="#tldr">Коротко</a>
+  <!-- <a href="#ours">Что у нас сработало</a> — только если есть документ пользователя -->
+  <!-- <a href="#now">Сейчас → новая версия</a> — только если есть документ пользователя -->
+  <a href="#tiers">Тир-лист</a>
+  <a href="#table">Сводная таблица</a>
+  <a href="#details">Подробно</a>
+  <a href="#variants">Варианты для нас</a>
+  <a href="#avoid">Чего избегать</a>
+  <a href="#questions">Вопросы</a>
+  <a href="#files">Материалы</a>
+</nav>
+
+<section id="tldr">
+<h2>Коротко</h2>
+<div class="panel"><ol>
+  <li><b>{Главный вывод}.</b> {Пояснение со ссылкой на 2–3 игры.}</li>
+  <!-- 5–7 пунктов; последний — «Чего не делать» вложенным списком -->
+</ol></div>
+</section>
+
+<!-- Раздел «Что у нас сработало» (id="ours"): .grid2 из .panel с h4 «1. ...», затем .callout «Что обязательно перенести». -->
+<!-- Раздел «Сейчас → новая версия» (id="now"): .tablewrap > table style="min-width:760px". Без документа — .panel «Контекст проекта». -->
+
+<section id="tiers">
+<h2>Тир-лист референсов</h2>
+<p>Критерии: {перенос к нам, проверенность, честность к слабым, деньги, цена разработки}. Клик по карточке ведёт к описанию.</p>
+<div class="tier"><div class="lbl t-S">S</div><div class="items">
+  <a class="chipcard" href="#game-id"><img src="img/game_screen.png" alt=""><span><b>Игра</b>Режим: суть в 4–6 словах</span></a>
+</div></div>
+<div class="tier"><div class="lbl t-A">A</div><div class="items"></div></div>
+<div class="tier"><div class="lbl t-B">B</div><div class="items"></div></div>
+<div class="tier"><div class="lbl t-C">C</div><div class="items"></div></div>
+</section>
+
+<section id="table">
+<h2>Сводная таблица</h2>
+<div class="tablewrap"><table>
+<tr><th>Тир</th><th>Игра и режим</th><th>Цикл</th><th>Попытки / вход</th><th>Рост сложности</th><th>Личная награда</th><th>Общая награда</th><th>Халявщики</th><th>Деньги</th><th>Плюсы для нас</th><th>Минусы и риски</th></tr>
+<tr><td><span class="badge t-S">S</span></td><td><b>Игра — режим</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td><span class="badge t-C">C</span></td><td colspan="10">Тир C одной строкой — подробности в <a href="#tierC">Тир C</a>.</td></tr>
+</table></div>
+</section>
+
+<section id="details">
+<h2>Подробно по референсам</h2>
+<div class="card" id="game-id">
+<h3><span class="badge t-S">S</span> Игра — режим</h3>
+<div class="meta">Студия, жанр. Год режима. Кто участвует.</div>
+<h4>Как работает</h4><ul class="tight"><li></li></ul>
+<h4>Награды</h4><ul class="tight"><li></li></ul>
+<h4>Деньги</h4><p></p>
+<h4>Что говорят игроки</h4><p><i>Вывод:</i> </p>
+<div class="pm"><div class="plus"><h4>Берём</h4><ul class="tight"><li></li></ul></div>
+<div class="minus"><h4>Не берём</h4><ul class="tight"><li></li></ul></div></div>
+<div class="gallery">
+<figure><a href="img/game_screen.png" target="_blank"><img src="img/game_screen.png" alt=""></a><figcaption>Что на картинке важного</figcaption></figure>
+<figure><a href="yt/game_yt_95.jpg" target="_blank"><img src="yt/game_yt_95.jpg" alt=""></a><figcaption>YouTube: что видно в кадре</figcaption></figure>
+</div>
+<div class="yt"><span class="tag">YouTube</span><a href="https://www.youtube.com/watch?v=ID" target="_blank">Канал — «Название»</a>: 1:25 что там; по расшифровке — новое по сравнению с вики.</div>
+<details><summary>Источники</summary><div class="src"><a href="#">ссылка</a> · <a href="#">ссылка</a></div></details>
+</div>
+<div class="card" id="tierC">
+<h3><span class="badge t-C">C</span> Тир C: слабо подходят или повторяют других</h3>
+<div class="tablewrap"><table style="min-width:760px"><tr><th>Игра и режим</th><th>Суть</th><th>Что полезного</th><th>Почему C</th></tr></table></div>
+<div class="gallery"></div>
+</div>
+</section>
+
+<section id="variants">
+<h2>Варианты для {ПРОЕКТ}</h2>
+<div class="variant rec">
+<h3>Вариант 1. «Название» <span class="badge t-S">рекомендую</span></h3>
+<p class="muted small">Основа: {референсы}.</p>
+<!-- если у варианта есть недельный поток: .week из 7 div, бой/пик — class="fight" -->
+<div class="kv"><div>Ключ</div><div>Значение</div></div>
+<div class="pm"><div class="plus"><h4>Плюсы</h4><ul class="tight"><li></li></ul></div>
+<div class="minus"><h4>Минусы и риски</h4><ul class="tight"><li></li></ul></div></div>
+</div>
+<h3>Сравнение вариантов</h3>
+<div class="tablewrap"><table style="min-width:760px"><tr><th></th><th>1</th><th>2</th><th>3</th></tr></table></div>
+</section>
+
+<section id="avoid">
+<h2>Чего избегать</h2>
+<div class="tablewrap"><table style="min-width:760px"><tr><th>Ошибка</th><th>Где обожглись</th><th>Что делать вместо</th></tr></table></div>
+</section>
+
+<section id="questions">
+<h2>Вопросы для обсуждения</h2>
+<ol><li></li></ol>
+</section>
+
+<section id="files">
+<h2>Материалы</h2>
+<ul class="small">
+  <li>Отчёты по группам: <a href="research/1-group.md">1 — группа</a>.</li>
+  <li>Заметки из расшифровок: <a href="yt/notes_transcripts.md">yt/notes_transcripts.md</a>.</li>
+  <li>Картинки: папки <code>img</code> и <code>yt</code>.</li>
+</ul>
+</section>
+
+</div>
+<script>
+function toggleTheme() {
+  const r = document.documentElement;
+  const dark = r.getAttribute('data-theme') ? r.getAttribute('data-theme') === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  r.setAttribute('data-theme', dark ? 'light' : 'dark');
+  try { localStorage.setItem('cb-theme', r.getAttribute('data-theme')); } catch (e) {}
+}
+try { const t = localStorage.getItem('cb-theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
+</body>
+</html>
